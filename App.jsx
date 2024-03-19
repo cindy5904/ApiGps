@@ -19,26 +19,21 @@ export default function App() {
         );
     }, []);
 
-    // useEffect(() => {
-    //     axios.get(`${BaseUrl}&q=${latitude},${longitude}`)
-    //             .then(response => {
-    //                 console.log('Données de localisation reçues :', response.data);
-    //                 setLocation(response.data);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Erreur lors de la récupération de la localisation :', error);
-    //             });
-    //     },[latitude, longitude]);
-        function Actualise() {
-            axios.get(`${BaseUrl}&q=${latitude},${longitude}`)
-            .then(response => {
-                console.log('Données de localisation :', response.data);
-                setLocation(response.data);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de la localisation :', error);
-            });
-    }
+    useEffect(() => {
+        const Actualise = () => {
+        axios.get(`${BaseUrl}&q=${latitude},${longitude}`)
+                .then(response => {
+                    console.log('Données de localisation reçues :', response.data);
+                    setLocation(response.data);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de la localisation :', error);
+                });
+                if (latitude !== null && longitude !== null) {
+                    Actualise();
+                }
+}},[latitude, longitude]);
+   
 
   return (
     <View>
